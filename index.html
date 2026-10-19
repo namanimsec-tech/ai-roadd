@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Engineering Knowledge Graph — v0.2</title>
+  <meta name="description" content="An interactive knowledge graph and roadmap for AI engineering — covering Math, Programming, Classical ML, Neural Networks, LLMs, Agents and everything in between." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">v0.2 — idea-first, not algorithm-first</div>
+    <h1 class="hero-title">AI Engineering<br /><span class="gradient-text">Knowledge Graph</span></h1>
+    <p class="hero-subtitle">A full dependency map of every idea in modern AI — from linear algebra to LLMs to autonomous agents. See the whole picture, then dive into any node.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="scrollToSection('big-picture')">Explore the Graph</button>
+      <button class="btn-secondary" onclick="scrollToSection('phases-nav')">Browse by Phase</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">130+</span><span class="stat-label">Concepts</span></div>
+      <div class="stat"><span class="stat-num">9</span><span class="stat-label">Phases</span></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Foundations</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Mastery Tiers</span></div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-dot"></div>
+    <span>Scroll to explore</span>
+  </div>
+</header>
+
+<!-- ===== HOW TO READ ===== -->
+<section class="section how-to-read" id="how-to-read">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Guide</span>
+      <h2 class="section-title">How to Read This Graph</h2>
+      <p class="section-desc">Every node in this knowledge graph answers the same six questions. Nothing is introduced arbitrarily.</p>
+    </div>
+    <div class="field-grid">
+      <div class="field-card" data-color="blue">
+        <div class="field-icon">🎯</div>
+        <h3>Tier</h3>
+        <p>How deeply you need to know it — Must Master, Must Understand, or Awareness.</p>
+      </div>
+      <div class="field-card" data-color="purple">
+        <div class="field-icon">📊</div>
+        <h3>Industrial Frequency</h3>
+        <p>How often you'll actually touch this on the job — Daily to Historical.</p>
+      </div>
+      <div class="field-card" data-color="cyan">
+        <div class="field-icon">❓</div>
+        <h3>First-Principles Question</h3>
+        <p>The question that makes this node necessary — the intellectual problem it solves.</p>
+      </div>
+      <div class="field-card" data-color="green">
+        <div class="field-icon">🧠</div>
+        <h3>Mental Model</h3>
+        <p>A one-sentence intuition built for recall, not rigor.</p>
+      </div>
+      <div class="field-card" data-color="orange">
+        <div class="field-icon">🔗</div>
+        <h3>Requires → Unlocks</h3>
+        <p>The dependency edges — what must come before, and what this makes possible next.</p>
+      </div>
+      <div class="field-card" data-color="pink">
+        <div class="field-icon">💡</div>
+        <h3>Why Now?</h3>
+        <p>Why this sits at exactly this point in the sequence — citing specific prior nodes.</p>
+      </div>
+    </div>
+    <!-- Tier & Frequency Legend -->
+    <div class="legend-row">
+      <div class="legend-block">
+        <h4>Mastery Tiers</h4>
+        <div class="legend-items">
+          <div class="legend-item"><span class="tier-badge t1">T1</span><strong>Must Master</strong> — Derive, implement, debug, explain.</div>
+          <div class="legend-item"><span class="tier-badge t2">T2</span><strong>Must Understand</strong> — Know when/why; read papers; use correctly.</div>
+          <div class="legend-item"><span class="tier-badge t3">T3</span><strong>Awareness</strong> — Know it exists, the one-sentence idea, when to go deeper.</div>
+        </div>
+      </div>
+      <div class="legend-block">
+        <h4>Industrial Frequency</h4>
+        <div class="legend-items">
+          <div class="legend-item"><span class="freq-dot daily"></span><strong>Daily</strong> — You'll touch this most working days.</div>
+          <div class="legend-item"><span class="freq-dot weekly"></span><strong>Weekly</strong> — Comes up regularly, not every day.</div>
+          <div class="legend-item"><span class="freq-dot occasionally"></span><strong>Occasionally</strong> — Useful in specific project types.</div>
+          <div class="legend-item"><span class="freq-dot rare"></span><strong>Rare</strong> — Mostly conceptual value today.</div>
+          <div class="legend-item"><span class="freq-dot historical"></span><strong>Historical</strong> — Idea-teaching only.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BIG PICTURE ===== -->
+<section class="section big-picture-section" id="big-picture">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">The Big Picture</span>
+      <h2 class="section-title">The Full Dependency Graph</h2>
+      <p class="section-desc">Foundations A–D are the roots. Phases 2–4 are parallel branches. Phase 5 is where all classical branches converge. Phases 6–9 are a linear spine, each impossible without the last.</p>
+    </div>
+    <div class="big-picture-diagram">
+      <div class="bp-row bp-foundations">
+        <div class="bp-node foundation" data-phase="foundation-a" onclick="scrollToPhase('foundation-a')">
+          <span class="bp-label">Foundation A</span>
+          <span class="bp-sub">Mathematics</span>
+        </div>
+        <div class="bp-node foundation" data-phase="foundation-b" onclick="scrollToPhase('foundation-b')">
+          <span class="bp-label">Foundation B</span>
+          <span class="bp-sub">Programming</span>
+        </div>
+        <div class="bp-node foundation" data-phase="foundation-c" onclick="scrollToPhase('foundation-c')">
+          <span class="bp-label">Foundation C</span>
+          <span class="bp-sub">Computer Science</span>
+        </div>
+        <div class="bp-node foundation" data-phase="foundation-d" onclick="scrollToPhase('foundation-d')">
+          <span class="bp-label">Foundation D</span>
+          <span class="bp-sub">Data Engineering</span>
+        </div>
+      </div>
+      <div class="bp-arrow-down"><div class="bp-arrow-line"></div></div>
+      <div class="bp-row bp-phase1">
+        <div class="bp-node phase1" data-phase="phase1" onclick="scrollToPhase('phase1')">
+          <span class="bp-label">Phase 1</span>
+          <span class="bp-sub">Learning Theory</span>
+        </div>
+      </div>
+      <div class="bp-arrow-split">
+        <div class="bp-split-line left"></div>
+        <div class="bp-split-line center"></div>
+        <div class="bp-split-line right"></div>
+      </div>
+      <div class="bp-row bp-phases234">
+        <div class="bp-node phase2" data-phase="phase2" onclick="scrollToPhase('phase2')">
+          <span class="bp-label">Phase 2</span>
+          <span class="bp-sub">Classical ML</span>
+        </div>
+        <div class="bp-node phase3" data-phase="phase3" onclick="scrollToPhase('phase3')">
+          <span class="bp-label">Phase 3</span>
+          <span class="bp-sub">Bayesian</span>
+        </div>
+        <div class="bp-node phase4" data-phase="phase4" onclick="scrollToPhase('phase4')">
+          <span class="bp-label">Phase 4</span>
+          <span class="bp-sub">Unsupervised</span>
+        </div>
+      </div>
+      <div class="bp-arrow-merge">
+        <div class="bp-merge-line"></div>
+      </div>
+      <div class="bp-row bp-phase5">
+        <div class="bp-node phase5 convergence" data-phase="phase5" onclick="scrollToPhase('phase5')">
+          <span class="bp-label">Phase 5</span>
+          <span class="bp-sub">Representation Learning &amp; Neural Foundations</span>
+          <span class="bp-tag">Convergence Point</span>
+        </div>
+      </div>
+      <div class="bp-arrow-down"><div class="bp-arrow-line"></div></div>
+      <div class="bp-row bp-phase6">
+        <div class="bp-node phase6" data-phase="phase6" onclick="scrollToPhase('phase6')">
+          <span class="bp-label">Phase 6</span>
+          <span class="bp-sub">Sequence, Structure &amp; Attention</span>
+        </div>
+      </div>
+      <div class="bp-arrow-down"><div class="bp-arrow-line"></div></div>
+      <div class="bp-row bp-phase7">
+        <div class="bp-node phase7" data-phase="phase7" onclick="scrollToPhase('phase7')">
+          <span class="bp-label">Phase 7</span>
+          <span class="bp-sub">Generative Modeling</span>
+        </div>
+      </div>
+      <div class="bp-arrow-down"><div class="bp-arrow-line"></div></div>
+      <div class="bp-row bp-phase8">
+        <div class="bp-node phase8" data-phase="phase8" onclick="scrollToPhase('phase8')">
+          <span class="bp-label">Phase 8</span>
+          <span class="bp-sub">Cross-Cutting Paradigms (RL, SSL, Meta-Learning…)</span>
+        </div>
+      </div>
+      <div class="bp-arrow-down"><div class="bp-arrow-line"></div></div>
+      <div class="bp-row bp-phase9">
+        <div class="bp-node phase9 payoff" data-phase="phase9" onclick="scrollToPhase('phase9')">
+          <span class="bp-label">Phase 9</span>
+          <span class="bp-sub">Modern AI Engineering (LLMs, RAG, Agents…)</span>
+          <span class="bp-tag">Payoff Phase</span>
+        </div>
+      </div>
+    </div>
+    <p class="bp-note">💡 Click any phase node to jump directly to its content. Phase 8 feeds back into Phases 5, 6, and 7 — SSL and RL ideas keep reshaping earlier phases.</p>
+  </div>
+</section>
+
+<!-- ===== PHASES NAV ===== -->
+<section class="phases-nav-strip" id="phases-nav">
+  <div class="container">
+    <div class="phases-nav-scroll" id="phases-nav-scroll">
+      <button class="phase-nav-btn active" data-filter="all" onclick="filterPhase('all')">All</button>
+      <button class="phase-nav-btn" data-filter="foundation-a" onclick="filterPhase('foundation-a')">Found. A — Math</button>
+      <button class="phase-nav-btn" data-filter="foundation-b" onclick="filterPhase('foundation-b')">Found. B — Programming</button>
+      <button class="phase-nav-btn" data-filter="foundation-c" onclick="filterPhase('foundation-c')">Found. C — CS</button>
+      <button class="phase-nav-btn" data-filter="foundation-d" onclick="filterPhase('foundation-d')">Found. D — Data Eng.</button>
+      <button class="phase-nav-btn" data-filter="phase1" onclick="filterPhase('phase1')">Phase 1 — Learning Theory</button>
+      <button class="phase-nav-btn" data-filter="phase2" onclick="filterPhase('phase2')">Phase 2 — Classical ML</button>
+      <button class="phase-nav-btn" data-filter="phase3" onclick="filterPhase('phase3')">Phase 3 — Bayesian</button>
+      <button class="phase-nav-btn" data-filter="phase4" onclick="filterPhase('phase4')">Phase 4 — Unsupervised</button>
+      <button class="phase-nav-btn" data-filter="phase5" onclick="filterPhase('phase5')">Phase 5 — Neural Foundations</button>
+      <button class="phase-nav-btn" data-filter="phase6" onclick="filterPhase('phase6')">Phase 6 — Attention</button>
+      <button class="phase-nav-btn" data-filter="phase7" onclick="filterPhase('phase7')">Phase 7 — Generative</button>
+      <button class="phase-nav-btn" data-filter="phase8" onclick="filterPhase('phase8')">Phase 8 — Paradigms</button>
+      <button class="phase-nav-btn" data-filter="phase9" onclick="filterPhase('phase9')">Phase 9 — AI Engineering</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEARCH BAR ===== -->
+<div class="search-bar-wrap" id="search-bar-wrap">
+  <div class="container">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search concepts, e.g. 'backpropagation', 'RAG', 'attention'..." oninput="handleSearch(this.value)" />
+      <button class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">✕</button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Filter by Tier:</span>
+      <button class="filter-btn active" data-tier="all" onclick="filterTier('all', this)">All</button>
+      <button class="filter-btn" data-tier="T1" onclick="filterTier('T1', this)">T1 — Must Master</button>
+      <button class="filter-btn" data-tier="T2" onclick="filterTier('T2', this)">T2 — Must Understand</button>
+      <button class="filter-btn" data-tier="T3" onclick="filterTier('T3', this)">T3 — Awareness</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="main-content" id="main-content">
+  <div class="container">
+
+    <!-- Results count -->
+    <div class="results-bar" id="results-bar" style="display:none">
+      <span id="results-count">0 results</span>
+      <button onclick="clearSearch(); clearTierFilter()">Clear filters</button>
+    </div>
+
+    <!-- All phase sections rendered by JS -->
+    <div id="phase-sections"></div>
+
+  </div>
+</main>
+
+<!-- ===== TIMELINE ===== -->
+<section class="section timeline-section" id="timeline">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Appendix III</span>
+      <h2 class="section-title">8–12 Month Learning Timeline</h2>
+      <p class="section-desc">A suggested roadmap to go from foundations to production AI engineering.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-month">Month 1</div>
+        <div class="tl-card">
+          <div class="tl-phases">Foundations A–D + Phase 1</div>
+          <div class="tl-project">🚀 <strong>Milestone:</strong> Implement gradient descent &amp; a loss-function library from scratch; set up Git/Docker workflow</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 2</div>
+        <div class="tl-card">
+          <div class="tl-phases">Phase 2 — Linear / Tree / Ensembles</div>
+          <div class="tl-project">🏆 <strong>Milestone:</strong> Kaggle-style tabular competition using from-scratch + library models</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 3</div>
+        <div class="tl-card">
+          <div class="tl-phases">Phase 3 + Phase 4</div>
+          <div class="tl-project">🔬 <strong>Milestone:</strong> Bayesian A/B testing tool + clustering/anomaly-detection mini-project</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 4–5</div>
+        <div class="tl-card">
+          <div class="tl-phases">Phase 5 — Neural Foundations, CNN/RNN</div>
+          <div class="tl-project">🤖 <strong>Milestone:</strong> Image classifier + a from-scratch backprop MLP library</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 6</div>
+        <div class="tl-card">
+          <div class="tl-phases">Phase 6 — Attention / Transformers</div>
+          <div class="tl-project">⚡ <strong>Milestone:</strong> Implement a mini-GPT (nanoGPT-style) from scratch</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 7</div>
+        <div class="tl-card">
+          <div class="tl-phases">Phase 7 — Generative Modeling</div>
+          <div class="tl-project">🎨 <strong>Milestone:</strong> Train a small VAE and a small diffusion model on toy data</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 8</div>
+        <div class="tl-card">
+          <div class="tl-phases">Phase 8 — RL, SSL, Meta / Federated</div>
+          <div class="tl-project">🔄 <strong>Milestone:</strong> Small RLHF-style loop; a contrastive self-supervised embedding model</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 9–10</div>
+        <div class="tl-card">
+          <div class="tl-phases">Phase 9 — LLM Engineering, RAG, Agents</div>
+          <div class="tl-project">🛠️ <strong>Milestone:</strong> Build a full RAG pipeline + a tool-using agent</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Month 11–12</div>
+        <div class="tl-card">
+          <div class="tl-phases">Integration + Specialization</div>
+          <div class="tl-project">🎓 <strong>Milestone:</strong> Choose a research OR engineering track; capstone spanning ≥3 phases</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEPENDENCY HUB ===== -->
+<section class="section dep-section" id="dependency-hubs">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Appendix I</span>
+      <h2 class="section-title">Key Dependency Hubs</h2>
+      <p class="section-desc">The highest fan-out nodes — where seeing the full web of requires/unlocks matters most.</p>
+    </div>
+    <div class="dep-grid">
+      <div class="dep-card" id="dep-gradient-descent">
+        <h3>Gradient Descent</h3>
+        <span class="dep-phase">Phase 1 — Optimization</span>
+        <div class="dep-section-block">
+          <span class="dep-dir incoming">Requires</span>
+          <div class="dep-tags">
+            <span>Derivatives / Gradients</span><span>Chain Rule</span><span>ERM</span>
+          </div>
+        </div>
+        <div class="dep-section-block">
+          <span class="dep-dir outgoing">Unlocks</span>
+          <div class="dep-tags">
+            <span>Linear Regression</span><span>Logistic Regression</span><span>MLP / Backpropagation</span><span>Every neural architecture through Phase 9</span>
+          </div>
+        </div>
+      </div>
+      <div class="dep-card" id="dep-backprop">
+        <h3>Backpropagation</h3>
+        <span class="dep-phase">Phase 5</span>
+        <div class="dep-section-block">
+          <span class="dep-dir incoming">Requires</span>
+          <div class="dep-tags">
+            <span>Chain Rule</span><span>Automatic Differentiation</span><span>MLP</span>
+          </div>
+        </div>
+        <div class="dep-section-block">
+          <span class="dep-dir outgoing">Unlocks</span>
+          <div class="dep-tags">
+            <span>CNN</span><span>RNN</span><span>Transformer</span><span>VAE</span><span>GAN</span><span>Diffusion</span><span>LLMs</span>
+          </div>
+        </div>
+      </div>
+      <div class="dep-card" id="dep-self-attention">
+        <h3>Self-Attention</h3>
+        <span class="dep-phase">Phase 6</span>
+        <div class="dep-section-block">
+          <span class="dep-dir incoming">Requires</span>
+          <div class="dep-tags">
+            <span>Attention Mechanism</span><span>Linear Algebra</span><span>Softmax</span>
+          </div>
+        </div>
+        <div class="dep-section-block">
+          <span class="dep-dir outgoing">Unlocks</span>
+          <div class="dep-tags">
+            <span>The Transformer</span><span>ViT</span><span>GNN (via GAT)</span><span>Multimodal Models</span><span>LLMs</span>
+          </div>
+        </div>
+      </div>
+      <div class="dep-card" id="dep-transformer">
+        <h3>The Transformer</h3>
+        <span class="dep-phase">Phase 6</span>
+        <div class="dep-section-block">
+          <span class="dep-dir incoming">Requires</span>
+          <div class="dep-tags">
+            <span>Self-Attention</span><span>Residual Connections</span><span>LayerNorm</span>
+          </div>
+        </div>
+        <div class="dep-section-block">
+          <span class="dep-dir outgoing">Unlocks</span>
+          <div class="dep-tags">
+            <span>BERT / GPT / T5</span><span>ViT</span><span>LLMs</span><span>RAG</span><span>Agents</span><span>Diffusion (backbone)</span>
+          </div>
+        </div>
+      </div>
+      <div class="dep-card" id="dep-ssl">
+        <h3>Self-Supervised Learning</h3>
+        <span class="dep-phase">Phase 8 — Full Treatment</span>
+        <div class="dep-section-block">
+          <span class="dep-dir incoming">Requires</span>
+          <div class="dep-tags">
+            <span>Metric Learning</span><span>Autoencoders</span><span>Transformer</span>
+          </div>
+        </div>
+        <div class="dep-section-block">
+          <span class="dep-dir outgoing">Unlocks</span>
+          <div class="dep-tags">
+            <span>Pretraining Pipeline (Phase 9)</span><span>LLMs</span><span>Multimodal Models</span>
+          </div>
+        </div>
+      </div>
+      <div class="dep-card" id="dep-agents">
+        <h3>AI Agents</h3>
+        <span class="dep-phase">Phase 9</span>
+        <div class="dep-section-block">
+          <span class="dep-dir incoming">Requires</span>
+          <div class="dep-tags">
+            <span>LLMs</span><span>RAG</span><span>Neuro-Symbolic tool-calling (Phase 8)</span><span>RL intuition</span>
+          </div>
+        </div>
+        <div class="dep-section-block">
+          <span class="dep-dir outgoing">Unlocks</span>
+          <div class="dep-tags">
+            <span>Autonomous production systems</span><span>Model Context Protocol</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== IDEA-TEACHING TABLE ===== -->
+<section class="section idea-teaching-section" id="idea-teaching">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Appendix II</span>
+      <h2 class="section-title">Idea-Teaching Algorithms</h2>
+      <p class="section-desc">Not industry-critical today, but skipping them leaves a conceptual gap. Treat as Tier 3, but non-negotiable.</p>
+    </div>
+    <div class="idea-table-wrap">
+      <table class="idea-table">
+        <thead>
+          <tr><th>Algorithm</th><th>Why It's Kept</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Perceptron</td><td>Teaches the linear-separability limit → motivates MLPs</td></tr>
+          <tr><td>Vanilla RNN</td><td>Teaches the vanishing-gradient limit → motivates LSTM → motivates Attention</td></tr>
+          <tr><td>Hidden Markov Models</td><td>Teaches sequential / latent structure before attention existed</td></tr>
+          <tr><td>GANs</td><td>Teaches adversarial training before diffusion dominance</td></tr>
+          <tr><td>Rule-Based Expert Systems</td><td>Teaches why pure symbolic AI didn't scale → motivates statistical learning, and later, neuro-symbolic hybrids</td></tr>
+          <tr><td>Normalizing Flows / Energy-Based Models</td><td>Teach alternative density-modeling views that clarify what diffusion models are actually doing</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>AI Engineering Knowledge Graph</h3>
+        <p>v0.2 — idea-first, not algorithm-first.<br/>Treat this like software, not a frozen document — it evolves as understanding deepens.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Foundations</h4>
+          <a href="#" onclick="scrollToPhase('foundation-a')">A — Mathematics</a>
+          <a href="#" onclick="scrollToPhase('foundation-b')">B — Programming</a>
+          <a href="#" onclick="scrollToPhase('foundation-c')">C — Computer Science</a>
+          <a href="#" onclick="scrollToPhase('foundation-d')">D — Data Engineering</a>
+        </div>
+        <div class="footer-col">
+          <h4>Phases</h4>
+          <a href="#" onclick="scrollToPhase('phase1')">1 — Learning Theory</a>
+          <a href="#" onclick="scrollToPhase('phase2')">2 — Classical ML</a>
+          <a href="#" onclick="scrollToPhase('phase3')">3 — Bayesian</a>
+          <a href="#" onclick="scrollToPhase('phase4')">4 — Unsupervised</a>
+          <a href="#" onclick="scrollToPhase('phase5')">5 — Neural Foundations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Advanced</h4>
+          <a href="#" onclick="scrollToPhase('phase6')">6 — Attention</a>
+          <a href="#" onclick="scrollToPhase('phase7')">7 — Generative</a>
+          <a href="#" onclick="scrollToPhase('phase8')">8 — Paradigms</a>
+          <a href="#" onclick="scrollToPhase('phase9')">9 — AI Engineering</a>
+        </div>
+        <div class="footer-col">
+          <h4>Appendices</h4>
+          <a href="#dependency-hubs">I — Dependency Hubs</a>
+          <a href="#idea-teaching">II — Idea-Teaching Algos</a>
+          <a href="#timeline">III — 8–12 Month Timeline</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Version History: v0.1 Initial | <strong>v0.2</strong> Added Mental Models, Industrial Frequency, Foundation D | v0.3 Full dependency edges | v0.4 Full chapter expansions | v1.0 Complete</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== TOPIC MODAL ===== -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
+<div class="modal" id="topic-modal" role="dialog" aria-modal="true">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-inner" id="modal-inner">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
